@@ -1,0 +1,16 @@
+<h1>Page 1</h1>
+
+<script>
+setInterval(function() {
+    var request = new XMLHttpRequest();
+    request.open('GET', '/api/query');
+    request.onreadystatechange = function() {
+        if (request.readyState === 4) {
+            if (request.responseText !== 'none') {
+                window.location.href = '/page2?person=' + request.responseText;
+            }
+        }
+    };
+    request.send();
+}, 1000);
+</script>
