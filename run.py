@@ -134,6 +134,9 @@ while True:
 		# if a face is detected, try find the identity
 		print("start finding")
 		person = face_compare()
+        if person != 'none':
+            resp = requests.get('http://localhost:5000/api/record?person=%s' % person)
+            print(resp.text)
 
 	# create a list to put who and when the event appear
 	# time=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
