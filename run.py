@@ -59,6 +59,9 @@ Face = {'roy.jpg': u'52f45244b4d4c6629ddb8a2c608ecf30', 'gakki.jpeg': u'f8b48747
 # You need to register your App first, and enter you API key/secret.
 API_KEY = "o_aUYdJlo0Pl1beu0kXiIQShUheA7pe3"
 API_SECRET = "Q0DrLrFybJvD7VP_XCKbOEeVeq7mUdLA"
+
+# API_KEY="pHGEA853U_N77-UkD6YHG4dNLmtrpmWC"
+# API_SECRET="JVfajP0hoCshpM1SV1HTocENH_1UV9Ak"
 api = API(API_KEY, API_SECRET)
 
 #the server of international version
@@ -134,9 +137,10 @@ while True:
 		# if a face is detected, try find the identity
 		print("start finding")
 		person = face_compare()
-        if person != 'none':
-            resp = requests.get('http://localhost:5000/api/record?person=%s' % person)
-            print(resp.text)
+
+		if person != 'none':
+			resp = requests.get('http://localhost:5000/api/record?person=%s' % person)
+			print(resp.text)
 
 	# create a list to put who and when the event appear
 	# time=datetime.now().strftime('%Y-%m-%d %H:%M:%S')

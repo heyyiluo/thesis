@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>First Web Visualiation</title>
+  <script src="https://github.com/op-en/animera.js/releases/download/v2.2.0/animera.js" data-autobind="https://op-en.se"></script>
+  <script type="text/javascript" src="../static/animera.js-master/dist/AnimeraWidget.js"></script>
+<!--    <script src="../static/animera.js-master/src/Animera.js" data-autobind="http://op-en.se:5000"></script> -->
+</head>
+
+<style type="text/css">
+  
+
+  img{
+    max-width: 100%;
+    max-height: 100%
+  }
+
+  body,html{
+    width: 100%;
+    height: 100%;
+  }
+
+  #spaceship{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 550px;
+    left: 850px;
+    background-image: url(../static/img/spaceship.png);
+    background-repeat: no-repeat;
+    background-size: 30px;
+    /*background-color: white;*/
+  }
+  #fan{
+    width: 10px;
+    height: 10px;
+    z-index: 10;
+    position: absolute;
+    top: 100%;
+    left: 40%;
+    /*background-color: red;*/
+    background-image: url(../static/img/fan.png);
+    background-size: 10px;
+    background-repeat: no-repeat;
+
+  }
+</style>
+
+<body background="../static/img/universe2.jpeg">
+  <h1>First Web Visualization</h1>
+
+
+  <img src="../static/img/earth.png" style="width: 40%; position: absolute; top: 60%;left: 75%">
+  <img src="../static/img/planet1.png" style="width: 10%; position: absolute; top: 40%;left: 45%">
+  <img src="../static/img/planet2.2.png" style="width: 20%; position: absolute; top: 0%;left: 0%">   
+
+  <div id="spaceship">
+    <div id="fan" animera="bindTopicToRotation?inputRange=[0,2500];outputRange=[0,0.5];relative=true;clamp=true;topic=test/abb/veraplus/fibaro/17/;subproperty=Watts"></div>
+  </div>
+
+
+  <div id="value" style="color: white;">This value will be replaced with data sent to test/topic1 on the mqtt broaker at op-en.se</div>
+
+  <script>
+
+    var ship = document.getElementById("spaceship");
+    var movement = 1;
+    function move(){
+      var positionleft = document.getElementById("spaceship").offsetLeft;
+      var positiontop = document.getElementById("spaceship").offsetTop;
+      ship.style.left=(positionleft-movement) + 'px';
+      ship.style.top=(positiontop-movement)+'px';
+    };
+
+    // data = data*10;
+
+    setInterval(move,1000);
+
+    
+
+    //   AnimeraWidget.init({
+    //   server: 'https://op-en.se',
+    //   topic: 'test/roy/group/2',
+    //   subproperty: "totalconsumption",
+    //   outputRange: [0.1, 10]
+    // }).then(function (objects) {
+    //   var settings = objects.settings;
+    //   var controller = objects.animera.getController(settings.server)
+    //   controller.bindTopicToHtml(document.getElementById("value"), settings)
+    //   controller.bindTopicToCallback(function(data){
+
+    //     var ship = document.getElementById("spaceship");
+    //     var movement = data/1500;
+    //     function move(){
+    //       var positionleft = document.getElementById("spaceship").offsetLeft;
+    //       var positiontop = document.getElementById("spaceship").offsetTop;
+    //       ship.style.left=(positionleft-movement) + 'px';
+    //       ship.style.top=(positiontop-movement)+'px';
+    //     };
+
+    //     // data = data*10;
+
+    //     setInterval(move,2000);
+
+    //   },settings)
+
+
+    // })
+
+    </script>
+
+
+  <style>
+    body{
+      text-align: center;
+    }
+  </style>
+</body>
