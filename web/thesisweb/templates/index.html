@@ -3,7 +3,7 @@
 <head>
   <title>First Web Visualiation</title>
   <script src="https://github.com/op-en/animera.js/releases/download/v2.2.0/animera.js" data-autobind="https://op-en.se"></script>
-  <script type="text/javascript" src="../static/animera.js-master/dist/AnimeraWidget.js"></script>
+  <script type="text/javascript" src="animeraWidget.js"></script>
 <!--    <script src="../static/animera.js-master/src/Animera.js" data-autobind="http://op-en.se:5000"></script> -->
 </head>
 
@@ -61,7 +61,13 @@
 
   <div id="value" style="color: white;">This value will be replaced with data sent to test/topic1 on the mqtt broaker at op-en.se</div>
 
+  <div id="dataDiv1" style="transform-origin: center; background-color: rgba(255,245,0,1); height:160px; width:200px; padding:20px; float:left; margin-right:30px; font-size:12px;" animera="bindTopicToHtml?topic=test/signalA"></div>
+
+
+
   <script>
+
+
 
     var ship = document.getElementById("spaceship");
     var movement = 1;
@@ -78,34 +84,34 @@
 
     
 
-    //   AnimeraWidget.init({
-    //   server: 'https://op-en.se',
-    //   topic: 'test/roy/group/2',
-    //   subproperty: "totalconsumption",
-    //   outputRange: [0.1, 10]
-    // }).then(function (objects) {
-    //   var settings = objects.settings;
-    //   var controller = objects.animera.getController(settings.server)
-    //   controller.bindTopicToHtml(document.getElementById("value"), settings)
-    //   controller.bindTopicToCallback(function(data){
+      AnimeraWidget.init({
+      server: 'https://op-en.se',
+      topic: 'test/roy/group/2',
+      subproperty: "totalconsumption",
+      outputRange: [0.1, 10]
+    }).then(function (objects) {
+      var settings = objects.settings;
+      var controller = objects.animera.getController(settings.server)
+      controller.bindTopicToHtml(document.getElementById("value"), settings)
+      controller.bindTopicToCallback(function(data){
 
-    //     var ship = document.getElementById("spaceship");
-    //     var movement = data/1500;
-    //     function move(){
-    //       var positionleft = document.getElementById("spaceship").offsetLeft;
-    //       var positiontop = document.getElementById("spaceship").offsetTop;
-    //       ship.style.left=(positionleft-movement) + 'px';
-    //       ship.style.top=(positiontop-movement)+'px';
-    //     };
+        var ship = document.getElementById("spaceship");
+        var movement = data/1500;
+        function move(){
+          var positionleft = document.getElementById("spaceship").offsetLeft;
+          var positiontop = document.getElementById("spaceship").offsetTop;
+          ship.style.left=(positionleft-movement) + 'px';
+          ship.style.top=(positiontop-movement)+'px';
+        };
 
-    //     // data = data*10;
+        // data = data*10;
 
-    //     setInterval(move,2000);
+        setInterval(move,2000);
 
-    //   },settings)
+      },settings)
 
 
-    // })
+    })
 
     </script>
 
