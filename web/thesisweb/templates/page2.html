@@ -1,12 +1,22 @@
-<h1>Page 2</h1>
-<!-- <h2>Hello {{ person }}</h2> -->
+<!DOCTYPE HTML>
+<html>
+<body>
 
-<h1 id='personname'></h1>
+<!-- <h1 id='personname'></h1> -->
+<video id="video" width="1920" height="1080" src="" controls="controls" autoplay="autoplay">
+your browser does not support the video tag
+</video>
 
 <script>
 
-	function getURLParameter(variable)
-	{
+  function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+  }
+
+  function getURLParameter(variable)
+  {
        var query = window.location.search.substring(1);
        var vars = query.split("?");
        for (var i=0;i<vars.length;i++) {
@@ -16,13 +26,62 @@
        return(false);
    }
 
-  	myleft = getURLParameter('left');
-  	mytop = getURLParameter('top');
-  	findperson = getURLParameter('person');
-  	document.getElementById("personname").innerHTML=findperson;
+  var url = location.search;
+  if (url.indexOf('?')!=-1) {
+    myleft1 = getURLParameter('left1');
+    mytop1 = getURLParameter('top1');
+    myleft2 = getURLParameter('left2');
+    mytop2 = getURLParameter('top2');
+    findperson = getURLParameter('person');
+    warn1 = getURLParameter('warn1');
+    warn2 = getURLParameter('warn2');
+
+    var srcroute;
+
+    if (findperson == "roy" ||findperson == "subrat"||findperson == "jonas"||findperson == "nilanga"||findperson == "jahirul") {
+      if (warn1 == "block") {
+        srcroute = "../static/animation/badcondition1.mp4";
+      }else{
+        var d = new Date();
+        var hour = d.getHours();
+        if (hour <= 13) {
+          videonumber = getRandomIntInclusive(1,2);
+        }else{
+          videonumber = getRandomIntInclusive(1,2);
+        }
+        
+        srcroute = "../static/animation/" + findperson + videonumber +".mp4";
+      }
+      
+    }else{
+      if (warn2 == "block") {
+        srcroute = "../static/animation/badcondition2.mp4";
+      }else{
+        var d = new Date();
+        var hour = d.getHours();
+        if (hour <= 13) {
+          videonumber = getRandomIntInclusive(1,2);
+        }else{
+          videonumber = getRandomIntInclusive(1,2);
+        }
+        
+        srcroute = "../static/animation/" + findperson + videonumber +".mp4";
+      }
+    }
+
+    var video = document.getElementById("video");
+    video.src = srcroute;
 
 
-	setTimeout(function () {
-	    window.location.href = '/page1?left='+myleft+'?top='+mytop;
-	}, 10 * 1000);
+  }
+
+  setTimeout(function () {
+    window.location.href = '/page1?left1='+myleft1+'?top1='+mytop1 + '?left2='+myleft2+'?top2='+mytop2;
+  }, 20 * 1000);
+
 </script>
+
+
+
+</body>
+</html>

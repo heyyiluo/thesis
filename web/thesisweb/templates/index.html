@@ -60,58 +60,102 @@
 
 
   <div id="value" style="color: white;">This value will be replaced with data sent to test/topic1 on the mqtt broaker at op-en.se</div>
+  <div id="value2" style="color: white;">This value will be replaced with data sent to test/topic1 on the mqtt broaker at op-en.se</div>
 
-  <div id="dataDiv1" style="transform-origin: center; background-color: rgba(255,245,0,1); height:160px; width:200px; padding:20px; float:left; margin-right:30px; font-size:12px;" animera="bindTopicToHtml?topic=test/signalA"></div>
-
+<!--   <div id="dataDiv1" style="transform-origin: center; background-color: rgba(255,245,0,1); height:160px; width:200px; padding:20px; float:left; margin-right:30px; font-size:12px;" animera="bindTopicToHtml?topic=test/signalA"></div>
+ -->
 
 
   <script>
+function move(ship,movement){
+  var positionleft = document.getElementById("spaceship").offsetLeft;
+  var positiontop = document.getElementById("spaceship").offsetTop;
+  ship.style.left=(positionleft-movement) + 'px';
+  ship.style.top=(positiontop-movement)+'px';
+};
 
 
 
-    var ship = document.getElementById("spaceship");
-    var movement = 1;
-    function move(){
-      var positionleft = document.getElementById("spaceship").offsetLeft;
-      var positiontop = document.getElementById("spaceship").offsetTop;
-      ship.style.left=(positionleft-movement) + 'px';
-      ship.style.top=(positiontop-movement)+'px';
-    };
+    // var ship = document.getElementById("spaceship");
+    // var movement = 1;
+    // function move(){
+    //   var positionleft = document.getElementById("spaceship").offsetLeft;
+    //   var positiontop = document.getElementById("spaceship").offsetTop;
+    //   ship.style.left=(positionleft-movement) + 'px';
+    //   ship.style.top=(positiontop-movement)+'px';
+    // };
 
-    // data = data*10;
+    // // data = data*10;
 
-    setInterval(move,1000);
-
-    
+    // setInterval(move,1000);
+    var movement = 0;
 
       AnimeraWidget.init({
       server: 'https://op-en.se',
-      topic: 'test/roy/group/2',
-      subproperty: "totalconsumption",
+      topic: 'test/abb/veraplus/fibaro/17/',
+      subproperty: "Watts",
       outputRange: [0.1, 10]
     }).then(function (objects) {
       var settings = objects.settings;
       var controller = objects.animera.getController(settings.server)
       controller.bindTopicToHtml(document.getElementById("value"), settings)
+
       controller.bindTopicToCallback(function(data){
+        if (data <0) {
+          if (movement >1) {
+            movement =0;
+          }else{
+            percentage = data*0.001;
+            movement =movement+ 1*percentage;
+          }
+          move(document.getElementById("spaceship"),movement);
+        }else{
 
-        var ship = document.getElementById("spaceship");
-        var movement = data/1500;
-        function move(){
-          var positionleft = document.getElementById("spaceship").offsetLeft;
-          var positiontop = document.getElementById("spaceship").offsetTop;
-          ship.style.left=(positionleft-movement) + 'px';
-          ship.style.top=(positiontop-movement)+'px';
-        };
+        }
 
-        // data = data*10;
 
-        setInterval(move,2000);
+        // timeinter = data*10;
+        // document.getElementById("value2").innerHTML = timeinter;
+        document.getElementById("value2").innerHTML = movement;
+        
+        // setInterval(move,timeinter);
+        
 
-      },settings)
+      },settings);
+      
+
 
 
     })
+
+    // AnimeraWidget.init({
+    //         server: 'https://op-en.se',
+    //         // topic:'test/abb/veraplus/fibaro/17/'
+    //         topic: 'test/roy/group/1',
+    //         subproperty: "totsaving",
+    //         outputRange: [0.1, 10]
+    //     }).then(function (objects) {
+    //         var settings = objects.settings;
+    //         var controller = objects.animera.getController(settings.server)
+    //         // controller.bindTopicToHtml(document.getElementById("value"), settings)
+    //         controller.bindTopicToCallback(function(data){
+
+    //             if (data >=0){
+    //                 warnpanel1.style.display="none";
+    //                 if (movement1>1) {
+    //                     movement1=0;
+    //                 }else{
+    //                     movement1=movement1+0.002*data;
+    //                 }
+    //                 move(document.getElementById("spaceship1"),movement1);
+    //             }else{
+    //                 warnpanel1.style.display="block";
+    //             }
+
+    //         },settings)
+
+    //     })
+
 
     </script>
 

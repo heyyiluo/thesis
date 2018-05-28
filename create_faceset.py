@@ -19,15 +19,19 @@ def createFace ():
 
     # 您需要先注册一个App，并将得到的API key和API secret写在这里。
     # You need to register your App first, and enter you API key/secret.
-    API_KEY = "o_aUYdJlo0Pl1beu0kXiIQShUheA7pe3"
-    API_SECRET = "Q0DrLrFybJvD7VP_XCKbOEeVeq7mUdLA"
+    # API_KEY = "o_aUYdJlo0Pl1beu0kXiIQShUheA7pe3"
+    # API_SECRET = "Q0DrLrFybJvD7VP_XCKbOEeVeq7mUdLA"
+    # API_KEY="pHGEA853U_N77-UkD6YHG4dNLmtrpmWC"
+    # API_SECRET="JVfajP0hoCshpM1SV1HTocENH_1UV9Ak"
+    API_KEY="sOs8Asj9FyWTmnvMmK0fDz9pZ0UrWeS-"
+    API_SECRET="6_D533mPxcz2ys_CpxrNyg9UZ30iEtVt"
 
     #get the folder list
-    name_list=os.listdir('/Users/Roy/Documents/masterthesis/image_set')
+    name_list=os.listdir('C:/Users/XYILUO/Documents/GitHub/thesis/image_set')
     print (name_list)
     face_list=[]
     for i in range(len(name_list)):
-        face_url = '/Users/Roy/Documents/masterthesis/image_set/'+name_list[i]
+        face_url = 'C:/Users/XYILUO/Documents/GitHub/thesis/image_set/'+name_list[i]
         face_list.append(face_url)
     print face_list
 
@@ -40,14 +44,14 @@ def createFace ():
     #Create a API object, if you are an international user,code: api = API(API_KEY, API_SECRET, srv=api_server_international)
     api = API(API_KEY, API_SECRET)
 
-    api.faceset.delete(outer_id='test1', check_empty=0)
-    print('deleted')
+    # api.faceset.delete(outer_id='test2', check_empty=0)
+    # print('deleted')
 
-    # 创建一个Faceset用来存储FaceToken
+    # # 创建一个Faceset用来存储FaceToken
     # create a Faceset to save FaceToken
-    ret = api.faceset.create(outer_id='test1')
-    # print_result("faceset create", ret)
-    print('faceset create')
+    # ret = api.faceset.create(outer_id='test2')
+    # # print_result("faceset create", ret)
+    # print('faceset create')
 
     # 对图片进行检测
     # detect image
@@ -62,7 +66,7 @@ def createFace ():
 
     # 将得到的FaceToken存进Faceset里面
     # save FaceToken in Faceset
-    my_faceset = api.faceset.addface(outer_id='test1', face_tokens=Face.itervalues())
+    my_faceset = api.faceset.addface(outer_id='test2', face_tokens=Face.itervalues())
     print('finally create')
    
     return Face

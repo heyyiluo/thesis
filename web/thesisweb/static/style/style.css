@@ -33,34 +33,46 @@ height: 100%;
 
 #spaceship1{
 position: absolute;
-width: 30px;
-height: 30px;
-top: 600px;
-left: 1000px;
-background-image: url(../img/spaceship.png);
+width: 80px;
+height: 80px;
+top: 800px;
+left: 1500px;
+background-image: url(../img/spaceshipblue.png);
 background-repeat: no-repeat;
-background-size: 30px;
+background-size: 80px;
 }
 
 #spaceship2{
 position: absolute;
-width: 50px;
-height: 50px;
-top: 500px;
-left: 1050px;
-background-image: url(../img/ufo.png);
+width: 80px;
+height: 80px;
+top: 720px;
+left: 1520px;
+background-image: url(../img/spaceshipred.png);
 background-repeat: no-repeat;
-background-size: 50px;
+background-size: 80px;
 }
 
 #fan{
-width: 10px;
-height: 10px;
+width: 40px;
+height: 40px;
 z-index: 10;
 position: absolute;
-top: 100%;
-left: 40%;
+top: 43%;
+left: 67%;
 background-image: url(../img/fan.png);
-background-size: 10px;
+background-size: 40px;
+background-repeat: no-repeat;
+}
+
+#finding{
+width: 400px;
+height: 600px;
+z-index: 10;
+position: absolute;
+top: 25%;
+left: 40%;
+background-image: url(../img/finding.png);
+background-size: 400px;
 background-repeat: no-repeat;
 }
