@@ -2,10 +2,20 @@
 <html>
 <body>
 
-<!-- <h1 id='personname'></h1> -->
-<video id="video" width="1920" height="1080" src="" controls="controls" autoplay="autoplay">
-your browser does not support the video tag
-</video>
+  <script type="text/javascript" src="{{ url_for('static', filename='animeraWidget.js') }}"></script>
+
+<div id="outer" style="width: 1920px; height: 1080px; position: relative;">
+  <div id="videobox" style="left: 0%;top: 0%;width: 100%;height: 100%; position: absolute;z-index: -1;">
+    <video id="video" width="100%" position = "absolute" src="" controls="controls" autoplay="autoplay">
+      your browser does not support the video tag
+    </video>
+    <div id="totconsume" style="left: 45%; top: 50%;height: 100px;width: 100px; position: absolute;z-index: 0;color: white;font-size: 80px;">default</div>
+    <div id="curconsume" style="left: 23%; top: 55%;height: 100px;width: 100px; position: absolute;z-index: 1;color: white;font-size: 80px;">default</div>
+  </div>
+</div>
+
+
+
 
 <script>
 
@@ -26,6 +36,7 @@ your browser does not support the video tag
        return(false);
    }
 
+   // read the value conveyed in the url
   var url = location.search;
   if (url.indexOf('?')!=-1) {
     myleft1 = getURLParameter('left1');
@@ -36,48 +47,99 @@ your browser does not support the video tag
     warn1 = getURLParameter('warn1');
     warn2 = getURLParameter('warn2');
 
-    var srcroute;
-
-    if (findperson == "roy" ||findperson == "subrat"||findperson == "jonas"||findperson == "nilanga"||findperson == "jahirul") {
-      if (warn1 == "block") {
-        srcroute = "../static/animation/badcondition1.mp4";
-      }else{
-        var d = new Date();
-        var hour = d.getHours();
-        if (hour <= 13) {
-          videonumber = getRandomIntInclusive(1,2);
-        }else{
-          videonumber = getRandomIntInclusive(1,2);
-        }
-        
-        srcroute = "../static/animation/" + findperson + videonumber +".mp4";
-      }
-      
-    }else{
-      if (warn2 == "block") {
-        srcroute = "../static/animation/badcondition2.mp4";
-      }else{
-        var d = new Date();
-        var hour = d.getHours();
-        if (hour <= 13) {
-          videonumber = getRandomIntInclusive(1,2);
-        }else{
-          videonumber = getRandomIntInclusive(1,2);
-        }
-        
-        srcroute = "../static/animation/" + findperson + videonumber +".mp4";
-      }
-    }
-
+    // choose what video to play
+    var srcroute = "../static/animation/video.mp4";
     var video = document.getElementById("video");
     video.src = srcroute;
 
+    // choose which topic to display based on the recognized person
+    if (findperson == 'roy') {
+      num = 23;
+    }else if (findperson =='subrat') {
+      num = 23;
+    }else if (findperson == 'cathy') {
+      num = 15;
+    }else if (findperson =='monika') {
+      num = 16
+    }else if (findperson =='jonas') {
+      num = 25;
+    }else if (findperson == 'panos') {
+      num = 17;
+    }else if (findperson =='jahirul') {
+      num = 19;
+    }else if (findperson == 'nilanga') {
+      num = 18;
+    }else if (findperson =='federico') {
+      num = 20;
+    }
+    var cutopic = 'fibaro/'+num;
+    AnimeraWidget.init({
+          server: 'https://op-en.se',
+          topic: cutopic,
+          subproperty: "totalconsumption",
+          outputRange: [0.1, 10]
+      }).then(function (objects) {
+          var settings = objects.settings;
+          var controller = objects.animera.getController(settings.server);
+          controller.bindTopicToHtml(document.getElementById("totconsume"), settings);
 
-  }
+      })
 
-  setTimeout(function () {
-    window.location.href = '/page1?left1='+myleft1+'?top1='+mytop1 + '?left2='+myleft2+'?top2='+mytop2;
-  }, 20 * 1000);
+   
+
+    AnimeraWidget.init({
+          server: 'https://op-en.se',
+          topic: cutopic,
+          subproperty: "averageWh",
+          outputRange: [0.1, 10]
+      }).then(function (objects) {
+          var settings = objects.settings;
+          var controller = objects.animera.getController(settings.server);
+          controller.bindTopicToHtml(document.getElementById("averageWh"), settings);
+
+      })
+
+   }
+
+  //   // change the route of the video based on current recognized person
+
+  //   if (findperson == "roy" ||findperson == "subrat"||findperson == "jonas"||findperson == "nilanga"||findperson == "jahirul") {
+  //     if (warn1 == "block") {
+  //       srcroute = "../static/animation/badcondition1.mp4";
+  //     }else{
+  //       var d = new Date();
+  //       var hour = d.getHours();
+  //       if (hour <= 13) {
+  //         videonumber = getRandomIntInclusive(1,2);
+  //       }else{
+  //         videonumber = getRandomIntInclusive(1,2);
+  //       }
+        
+  //       srcroute = "../static/animation/" + findperson + videonumber +".mp4";
+  //     }
+      
+  //   }else{
+  //     if (warn2 == "block") {
+  //       srcroute = "../static/animation/badcondition2.mp4";
+  //     }else{
+  //       var d = new Date();
+  //       var hour = d.getHours();
+  //       if (hour <= 13) {
+  //         videonumber = getRandomIntInclusive(1,2);
+  //       }else{
+  //         videonumber = getRandomIntInclusive(1,2);
+  //       }
+        
+  //       srcroute = "../static/animation/" + findperson + videonumber +".mp4";
+  //     }
+  //   }
+
+  //   var video = document.getElementById("video");
+  //   video.src = srcroute;
+
+  // setTimeout(function () {
+  //   window.location.href = '/page1?left1='+myleft1+'?top1='+mytop1 + '?left2='+myleft2+'?top2='+mytop2;
+  // }, 20 * 1000);
 
 </script>
 

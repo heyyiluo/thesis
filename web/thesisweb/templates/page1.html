@@ -14,7 +14,6 @@
     <!-- <p id="value2" >number</p> -->
 
     <img src="{{ url_for('static', filename='img/earth.png') }}" style="width: 40%; position: absolute; top: 60%;left: 75%">
-    <!-- <img src="{{ url_for('static', filename='img/planet1.png') }}" style="width: 10%; position: absolute; top: 40%;left: 45%"> -->
     <img src="{{ url_for('static', filename='img/planet2.2.png') }}" style="width: 20%; position: absolute; top: 0%;left: 0%">
     <div id="finding" style="display: none;"></div>
 
@@ -57,7 +56,6 @@
             request.send();
         }, 1000);
 
-        // warnpanel1.style.display="block";
 
         function getURLParameter(variable)
         {
@@ -94,14 +92,12 @@
     
         AnimeraWidget.init({
             server: 'https://op-en.se',
-            // topic:'test/abb/veraplus/fibaro/17/'
             topic: 'test/roy/group/1',
             subproperty: "savingInter",
             outputRange: [0.1, 10]
         }).then(function (objects) {
             var settings = objects.settings;
             var controller = objects.animera.getController(settings.server)
-            // controller.bindTopicToHtml(document.getElementById("value"), settings)
             controller.bindTopicToCallback(function(data){
 
                 if (data >=0){
@@ -118,14 +114,12 @@
 
         AnimeraWidget.init({
             server: 'https://op-en.se',
-            // topic:'test/abb/veraplus/fibaro/17/'
             topic: 'test/roy/group/2',
             subproperty: "savingInter",
             outputRange: [0.1, 10]
         }).then(function (objects) {
             var settings = objects.settings;
             var controller = objects.animera.getController(settings.server)
-            // controller.bindTopicToHtml(document.getElementById("value2"), settings)
             controller.bindTopicToCallback(function(data){
                 if (data >=0){
                     warnpanel2.style.display="none";
