@@ -54,7 +54,7 @@
 
     // choose which topic to display based on the recognized person
     if (findperson == 'roy') {
-      num = 23;
+      num = 20;
     }else if (findperson =='subrat') {
       num = 23;
     }else if (findperson == 'cathy') {
@@ -72,10 +72,11 @@
     }else if (findperson =='federico') {
       num = 20;
     }
-    var cutopic = 'fibaro/'+num;
+    var cutopic = 'test/roy/plug/'+num;
     AnimeraWidget.init({
           server: 'https://op-en.se',
           topic: cutopic,
+          unit:"Wh",
           subproperty: "totalconsumption",
           outputRange: [0.1, 10]
       }).then(function (objects) {
@@ -91,11 +92,12 @@
           server: 'https://op-en.se',
           topic: cutopic,
           subproperty: "averageWh",
+          unit:"Wh",
           outputRange: [0.1, 10]
       }).then(function (objects) {
           var settings = objects.settings;
           var controller = objects.animera.getController(settings.server);
-          controller.bindTopicToHtml(document.getElementById("averageWh"), settings);
+          controller.bindTopicToHtml(document.getElementById("curconsume"), settings);
 
       })
 
@@ -137,9 +139,9 @@
   //   var video = document.getElementById("video");
   //   video.src = srcroute;
 
-  // setTimeout(function () {
-  //   window.location.href = '/page1?left1='+myleft1+'?top1='+mytop1 + '?left2='+myleft2+'?top2='+mytop2;
-  // }, 20 * 1000);
+  setTimeout(function () {
+    window.location.href = '/page1?left1='+myleft1+'?top1='+mytop1 + '?left2='+myleft2+'?top2='+mytop2;
+  }, 30 * 1000);
 
 </script>
 
